@@ -1,0 +1,115 @@
+.inv-header {
+  text-align: center;
+  padding: 3rem 2rem 2rem;
+  background: linear-gradient(to bottom, #fdf6e8, #fffaf2);
+}
+
+.inv-header-ornament {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+.flower-ornament-svg {
+  width: 260px;
+  height: 60px;
+}
+
+.inv-header-pretext {
+  font-family: 'Georgia', serif;
+  font-size: .9rem;
+  color: #8a6d3e;
+  letter-spacing: .06em;
+  margin: .25rem 0;
+  font-style: italic;
+}
+
+/* ── Couple row ── */
+.inv-header-couple {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.inv-header-person {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+}
+
+.inv-header-photo-frame {
+  width: 140px;
+  height: 170px;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  overflow: hidden;
+  border: 3px solid #c9a96e;
+  box-shadow: 0 4px 24px rgba(176,141,87,.25);
+}
+
+.inv-header-name {
+  font-family: 'Georgia', serif;
+  font-size: 2rem;
+  font-style: italic;
+  color: #5c3d1e;
+  margin: 0;
+  font-weight: normal;
+}
+.inv-header-lastname {
+  font-family: 'Georgia', serif;
+  font-size: .95rem;
+  color: #9a7640;
+  letter-spacing: .1em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+/* ── Ampersand ── */
+.inv-header-and {
+  flex-shrink: 0;
+}
+.amp-svg {
+  width: 80px;
+  height: 100px;
+}
+
+/* ── Date strip ── */
+.inv-header-date {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: .75rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+.inv-header-date-day {
+  font-family: 'Georgia', serif;
+  font-size: 3.5rem;
+  color: #b08d57;
+  line-height: 1;
+}
+.inv-header-date-month {
+  font-family: 'Georgia', serif;
+  font-size: 1.4rem;
+  color: #5c3d1e;
+  text-transform: capitalize;
+  font-style: italic;
+}
+.inv-header-date-year {
+  font-family: 'Georgia', serif;
+  font-size: 1.4rem;
+  color: #9a7640;
+  letter-spacing: .12em;
+}
+.inv-header-date-sep {
+  color: #c9a96e;
+  font-size: 1.5rem;
+}
+
+@media (max-width: 520px) {
+  .inv-header-photo-frame { width: 110px; height: 135px; }
+  .inv-header-name { font-size: 1.6rem; }
+  .inv-header-date-day { font-size: 2.5rem; }
+}

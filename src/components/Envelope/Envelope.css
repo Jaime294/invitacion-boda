@@ -1,0 +1,160 @@
+.envelope-scene {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: radial-gradient(ellipse at center, #2d1b0e 0%, #0f0703 100%);
+  cursor: pointer;
+  user-select: none;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+/* ── Wrapper stacks body + card ── */
+.envelope-wrapper {
+  position: relative;
+  width: 380px;
+  height: 260px;
+  filter: drop-shadow(0 20px 60px rgba(0,0,0,.7));
+  transition: transform .25s ease;
+}
+.envelope-wrapper:hover {
+  transform: scale(1.03);
+}
+
+/* ── Envelope body (parchment colour) ── */
+.envelope-body {
+  position: absolute;
+  inset: 0;
+  background: #f5e6c8;
+  border-radius: 4px;
+  overflow: visible;
+}
+
+/* ── Flaps ── */
+.flap {
+  position: absolute;
+  background: #e8d5a8;
+}
+
+/* Bottom V-flap */
+.flap-bottom {
+  bottom: 0; left: 0; right: 0;
+  height: 50%;
+  clip-path: polygon(0 100%, 50% 0, 100% 100%);
+  background: #dcc899;
+}
+
+/* Left triangle */
+.flap-left {
+  top: 0; left: 0; bottom: 0;
+  width: 50%;
+  clip-path: polygon(0 0, 0 100%, 100% 50%);
+  background: #e4d1a4;
+}
+
+/* Right triangle */
+.flap-right {
+  top: 0; right: 0; bottom: 0;
+  width: 50%;
+  clip-path: polygon(100% 0, 100% 100%, 0 50%);
+  background: #e4d1a4;
+}
+
+/* Top lid — rotates open */
+.flap-top {
+  top: 0; left: 0; right: 0;
+  height: 50%;
+  clip-path: polygon(0 0, 50% 100%, 100% 0);
+  background: #dcc899;
+  transform-origin: top center;
+  transition: transform .7s cubic-bezier(.4,0,.2,1), background .3s;
+  z-index: 10;
+}
+.envelope-wrapper.opening .flap-top {
+  transform: rotateX(-180deg);
+  background: #c9b482;
+}
+
+/* ── Wax seal in the middle ── */
+.wax-seal {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px; height: 60px;
+  z-index: 5;
+  transition: opacity .3s, transform .3s;
+}
+.envelope-wrapper.opening .wax-seal {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.6);
+}
+
+/* ── Card that rises when opening ── */
+.envelope-card {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(0px);
+  width: 300px;
+  height: 180px;
+  background: #fffaf2;
+  border: 1.5px solid #c9a96e;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  opacity: 0;
+  transition: transform .8s .5s cubic-bezier(.22,1,.36,1), opacity .6s .4s ease;
+}
+.envelope-wrapper.opening .envelope-card {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-200px);
+}
+
+.envelope-card-inner {
+  text-align: center;
+  padding: 1rem;
+}
+.envelope-card-names {
+  font-family: 'Georgia', serif;
+  font-size: 1.4rem;
+  color: #7a5c2e;
+  margin: 0 0 .5rem;
+  font-style: italic;
+}
+.envelope-card-label {
+  font-family: 'Georgia', serif;
+  font-size: .85rem;
+  color: #b08d57;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* ── Hint text ── */
+.envelope-hint {
+  color: #c9a96e;
+  font-family: 'Georgia', serif;
+  font-size: .9rem;
+  letter-spacing: .08em;
+  opacity: .8;
+  animation: pulse 2.5s ease-in-out infinite;
+  margin: 0;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: .5; }
+  50%       { opacity: 1; }
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .envelope-wrapper { width: 300px; height: 206px; }
+  .envelope-card { width: 240px; height: 140px; }
+  .envelope-wrapper.opening .envelope-card {
+    transform: translateX(-50%) translateY(-165px);
+  }
+}
