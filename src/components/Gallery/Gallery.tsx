@@ -5,16 +5,21 @@ import './Gallery.css';
 
 interface GalleryProps {
   photos: GalleryPhoto[];
+  title?: string;
+  subtitle?: string;
 }
 
-export default function Gallery({ photos }: GalleryProps) {
+export default function Gallery({ photos, title = 'Galería de recuerdos', subtitle }: GalleryProps) {
   const [lightbox, setLightbox] = useState<GalleryPhoto | null>(null);
 
   return (
     <section className="gallery">
       <div className="section-title-wrap">
         <div className="section-title-line" />
-        <h3 className="section-title">Nuestra historia</h3>
+        <div>
+          <h3 className="section-title">{title}</h3>
+          {subtitle && <p className="section-subtitle">{subtitle}</p>}
+        </div>
         <div className="section-title-line" />
       </div>
 
@@ -27,7 +32,6 @@ export default function Gallery({ photos }: GalleryProps) {
         ))}
       </div>
 
-      {/* Lightbox */}
       {lightbox && (
         <div className="lightbox-overlay" onClick={() => setLightbox(null)} role="dialog" aria-modal="true">
           <div className="lightbox-content" onClick={e => e.stopPropagation()}>

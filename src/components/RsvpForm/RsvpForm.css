@@ -35,6 +35,17 @@
   font-style: italic;
 }
 
+.rsvp-submit-error {
+  color: #a6403d;
+  background: rgba(212, 80, 80, 0.08);
+  border: 1px solid rgba(212, 80, 80, 0.2);
+  border-radius: 14px;
+  padding: .8rem 1rem;
+  margin-bottom: 1rem;
+  font-family: 'Inter', sans-serif;
+  text-align: center;
+}
+
 /* ── Form ── */
 .rsvp-form-inner {
   max-width: 500px;

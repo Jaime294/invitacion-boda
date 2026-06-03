@@ -46,6 +46,8 @@ const coreFields: FormFieldConfig[] = [
 
 interface RsvpFormProps {
   extraFields: FormFieldConfig[];
+  sheetUrl?: string;
+  deadline: string;
 }
 
 const initialValues: RsvpFormValues = {
@@ -55,7 +57,7 @@ const initialValues: RsvpFormValues = {
   origin: '',
 };
 
-export default function RsvpForm({ extraFields }: RsvpFormProps) {
+export default function RsvpForm({ extraFields, sheetUrl, deadline }: RsvpFormProps) {
   const [values, setValues] = useState<RsvpFormValues>(() => {
     const base = { ...initialValues };
     extraFields.forEach(f => { base[f.id] = ''; });
@@ -93,11 +95,25 @@ export default function RsvpForm({ extraFields }: RsvpFormProps) {
     if (!validate()) return;
     setStatus('submitting');
 
-    // ── Replace with your actual submission logic ──────────────────────────
-    // e.g. fetch('/api/rsvp', { method: 'POST', body: JSON.stringify(values) })
-    // For now we simulate a 1.5 s network call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    // ──────────────────────────────────────────────────────────────────────
+    if (sheetUrl) {
+      try {
+        await fetch(sheetUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(values),
+        });
+      } catch {
+        setStatus('error');
+        setErrors({ submit: 'No se pudo enviar al Google Sheet. Verifique la conexión.' });
+        return;
+      }
+    } else {
+      // Si no hay URL, usamos envío simulado para evitar bloquear la experiencia.
+      await new Promise(resolve => setTimeout(resolve, 1500));
+    }
+
     setStatus('success');
   }
 
@@ -124,7 +140,8 @@ export default function RsvpForm({ extraFields }: RsvpFormProps) {
         <div className="section-title-line" />
       </div>
 
-      <p className="rsvp-subtitle">Por favor confirma tu asistencia antes del <strong>1 de octubre de 2026</strong></p>
+      {errors.submit && <p className="rsvp-submit-error" role="alert">{errors.submit}</p>}
+      <p className="rsvp-subtitle">Por favor confirma tu asistencia antes del <strong>{deadline}</strong></p>
 
       <form className="rsvp-form-inner" onSubmit={handleSubmit} noValidate>
         {visibleFields.map(field => (

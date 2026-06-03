@@ -7,17 +7,21 @@ type AppState = 'envelope' | 'invitation';
 
 export default function App() {
   const [state, setState] = useState<AppState>('envelope');
+  const [shouldPlayMusic, setShouldPlayMusic] = useState(false);
   const { bride, groom } = coupleInfo;
 
-  if (state === 'envelope') {
-    return (
-      <Envelope
-        onOpen={() => setState('invitation')}
-        brideName={bride.firstName}
-        groomName={groom.firstName}
-      />
-    );
+  function handleOpen() {
+    setShouldPlayMusic(true);
+    setState('invitation');
   }
 
-  return <Invitation />;
+  return state === 'envelope' ? (
+    <Envelope
+      onOpen={handleOpen}
+      brideName={bride.firstName}
+      groomName={groom.firstName}
+    />
+  ) : (
+    <Invitation autoPlayMusic={shouldPlayMusic} />
+  );
 }
